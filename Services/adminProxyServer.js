@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 // create application/json parser
 let jsonParser = bodyParser.json();
 
-app.post('/v1/oauth/token', jsonParser, (req, res) => {
+app.post('/v1/login', jsonParser, (req, res) => {
 
     let credentials = {
         grant_type: config.grantType,
