@@ -7,7 +7,9 @@ const config   = {
 	clientId: 2,
 	clientSecret: 'H6Gdz7qp1FijBFb0T91UgQqfUsTZjBBcMMavMgfa',
 };
-const BASE_URL =  'http://127.0.0.1:8081';
+
+//User and Admin Base_url
+const BASE_URL = 'http://127.0.0.1:8082';
 
 //create express app instance
 const app = express();
@@ -22,7 +24,7 @@ app.use(function(req, res, next) {
 // create application/json parser
 let jsonParser = bodyParser.json();
 
-app.post('/oauth/token', jsonParser, (req, res) => {
+app.post('/user/login', jsonParser, (req, res) => {
 
     let credentials = {
         grant_type: config.grantType,
@@ -45,6 +47,6 @@ app.post('/oauth/token', jsonParser, (req, res) => {
 
 
 //set the port as env variable
-const PORT = process.env.PORT || 8090;
+const PORT = process.env.PORT || 8092;
 //The server will now listen on the provided port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
