@@ -8,6 +8,7 @@ const config   = {
 	clientSecret: 'y6lgDXlO4POpnMnwIFsPdkbsqcLTJx72hFVxJxe6',
 };
 
+
 //Admin_Base_url
 const BASE_URL = 'http://127.0.0.1:8081';
 
@@ -24,7 +25,7 @@ app.use(function(req, res, next) {
 // create application/json parser
 let jsonParser = bodyParser.json();
 
-app.post('/admin/login', jsonParser, (req, res) => {
+app.post('/v1/oauth/token', jsonParser, (req, res) => {
 
     let credentials = {
         grant_type: config.grantType,
@@ -36,12 +37,29 @@ app.post('/admin/login', jsonParser, (req, res) => {
 
     //Performing a POST request
     axios.post(`${BASE_URL}/oauth/token`, credentials)
-      .then( (response) => {
-        res.json(response.data);
-      })
-      .catch( (error) => {
-        res.json(error);
-      });
+    .then( (response) => {
+      res.header('Authorization', response.data.access_token);
+      res.json(response.data);
+    })
+    .catch( (error) => {
+      res.json(error.response.data);
+    });
+
+});
+
+
+app.get('/v1/admin', jsonParser, (req, res) => {
+  const header = {
+    headers: {'Authorization': `${req.headers.authorization}`}
+  }
+  //Performing a GET request
+  axios.get(`${BASE_URL}/v1/admin`, header)
+  .then( (response) => {
+    res.json(response.data);
+  })
+  .catch( (error) => {
+    res.json(error.response.data);
+  });
 
 });
 
