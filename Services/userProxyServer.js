@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 // create application/json parser
 let jsonParser = bodyParser.json();
 
-app.post('/user/login', jsonParser, (req, res) => {
+app.post('/v1/oauth/token', jsonParser, (req, res) => {
 
     let credentials = {
         grant_type: config.grantType,
@@ -37,6 +37,7 @@ app.post('/user/login', jsonParser, (req, res) => {
     //Performing a POST request
     axios.post(`${BASE_URL}/oauth/token`, credentials)
       .then( (response) => {
+        res.header('Authorization', response.data.access_token);
         res.json(response.data);
       })
       .catch( (error) => {

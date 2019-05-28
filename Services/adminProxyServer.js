@@ -48,20 +48,20 @@ app.post('/v1/oauth/token', jsonParser, (req, res) => {
 });
 
 
-app.get('/v1/admin', jsonParser, (req, res) => {
-  const header = {
-    headers: {'Authorization': `${req.headers.authorization}`}
-  }
-  //Performing a GET request
-  axios.get(`${BASE_URL}/v1/admin`, header)
-  .then( (response) => {
-    res.json(response.data);
-  })
-  .catch( (error) => {
-    res.json(error.response.data);
-  });
+// app.get('/v1/admin', jsonParser, (req, res) => {
+//   const header = {
+//     headers: {'Authorization': `${req.headers.authorization}`}
+//   }
+//   //Performing a GET request
+//   axios.get(`${BASE_URL}/v1/admin`, header)
+//   .then( (response) => {
+//     res.json(response.data);
+//   })
+//   .catch( (error) => {
+//     res.json(error.response.data);
+//   });
 
-});
+// });
 
 
 //set the port as env variable
